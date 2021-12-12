@@ -219,8 +219,8 @@ namespace StarWars.Application.Test
                 Inventario = new Inventario
                 {
                     Itens = new List<Item> {
-                        //new Item{Descricao = "SP", Quantity = 12, Type = "ECOMMERCE"},
-                        //new Item{Descricao = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
+                        //new Item{Nome = "SP", Quantity = 12, Type = "ECOMMERCE"},
+                        //new Item{Nome = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
                     }
                 },
             };

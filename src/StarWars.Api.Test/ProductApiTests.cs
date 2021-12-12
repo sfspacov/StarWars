@@ -71,7 +71,7 @@ namespace StarWars.Api.Test
         public async Task rebelde_GetAll_Ok()
         {
             // Act
-            var response = await _client.GetAsync("/api/v1/Rebelde/GetAll");
+            var response = await _client.GetAsync("/api/v1/Rebelde/RetornaTodos");
 
             // Assert
             Assert.True(response.IsSuccessStatusCode);

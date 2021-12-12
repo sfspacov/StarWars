@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace StarWars.Infra.Data.Repositories
 {
-    public class rebeldeRepository : IRebeldeRepository
+    public class RebeldeRepository : IRebeldeRepository
     {
         #region Properties
 

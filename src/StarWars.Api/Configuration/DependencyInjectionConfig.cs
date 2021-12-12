@@ -21,7 +21,8 @@ namespace StarWars.Api.Configuration
 
             #region Repositories
 
-            services.AddScoped<IRebeldeRepository, rebeldeRepository>();
+            services.AddScoped<IRebeldeRepository, RebeldeRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
 
             #endregion
 

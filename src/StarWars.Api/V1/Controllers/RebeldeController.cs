@@ -31,7 +31,7 @@ namespace StarWars.Api.V1.Controllers
 
         #region Public Methods
 
-        [HttpGet("GetAll")]
+        [HttpGet("RetornaTodos")]
         public ActionResult<IList<RebeldeViewModel>> GetAll()
         {
             var rebeldes = _mapper.Map<IList<RebeldeViewModel>>(_iRebeldeApplication.GetAll());
