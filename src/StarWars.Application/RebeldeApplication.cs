@@ -60,6 +60,9 @@ namespace StarWars.Application
 
         public Rebelde Update(Rebelde rebelde)
         {
+            if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
+                return null;
+
             var rebeldeResponse = _rebeldeRepository.Update(rebelde);
 
             if (rebeldeResponse == null)
