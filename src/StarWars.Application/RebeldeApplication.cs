@@ -11,15 +11,17 @@ namespace StarWars.Application
 
         private readonly INotificator _notificator;
         private readonly IRebeldeRepository _rebeldeRepository;
+        private readonly IItemApplication _itemApplication;
 
         #endregion
 
         #region Constructors
 
-        public RebeldeApplication(INotificator notificator, IRebeldeRepository rebeldeRepository)
+        public RebeldeApplication(INotificator notificator, IRebeldeRepository rebeldeRepository, IItemApplication itemApplication)
         {
             _notificator = notificator;
             _rebeldeRepository = rebeldeRepository;
+            _itemApplication = itemApplication;
         }
 
         #endregion
@@ -45,6 +47,9 @@ namespace StarWars.Application
 
         public Rebelde Create(Rebelde rebelde)
         {
+            if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
+                return null;
+
             var rebeldeResponse = _rebeldeRepository.Create(rebelde);
 
             if (rebeldeResponse == null)

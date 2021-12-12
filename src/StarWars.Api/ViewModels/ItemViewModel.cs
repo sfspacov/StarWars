@@ -4,7 +4,7 @@
     {
         #region Properties
 
-        public string Descricao { get; set; }
+        public string Nome { get; set; }
 
         public int Ponto { get; set; }
 

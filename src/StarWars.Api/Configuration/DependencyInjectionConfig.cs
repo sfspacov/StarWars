@@ -16,6 +16,7 @@ namespace StarWars.Api.Configuration
             #region Applications
 
             services.AddScoped<IRebeldeApplication, RebeldeApplication>();
+            services.AddScoped<IItemApplication, ItemApplication>();
 
             #endregion
 

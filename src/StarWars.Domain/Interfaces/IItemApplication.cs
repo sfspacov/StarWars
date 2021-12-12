@@ -3,8 +3,8 @@ using StarWars.Domain.Entities;
 
 namespace StarWars.Domain.Interfaces
 {
-    public interface IItemRepository
+    public interface IItemApplication
     {
-        Item ItensExistem(IEnumerable<Item> itens);
+        bool ItensExistem(IEnumerable<Item> itens);
     }
 }

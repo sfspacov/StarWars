@@ -37,19 +37,17 @@ namespace StarWars.Infra.Data.Repositories
 
         #region Public Methods
 
-        public IList<Item> RetornaTodos()
+        public Item ItensExistem(IEnumerable<Item> itens)
         {
-            return MemoryDatabase;
-        }
+            foreach (var item in itens)
+            {
+                if (!MemoryDatabase.Any(x => x.Nome.ToLower() == item.Nome.ToLower() && x.Ponto == item.Ponto))
+                {
+                    return item;
+                }
+            }
 
-        public Item RetornaPorName(string nome)
-        {
-            return MemoryDatabase.FirstOrDefault(x => x.Nome == nome);
-        }
-
-        public Item RetornaPorPonto(int ponto)
-        {
-            return MemoryDatabase.FirstOrDefault(x => x.Ponto == ponto);
+            return null;
         }
 
         #endregion
