@@ -6,11 +6,10 @@ namespace StarWars.Api.ViewModels
     {
         #region Properties
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
         [Required(ErrorMessage = "Campo Nome é obrigatório")]
         public string Name { get; set; }
 
-        public InventarioViewModel Inventario { get; set; }
         [Required(ErrorMessage = "Campo Idade é obrigatório")]
         public int Idade { get; set; }
         [Required(ErrorMessage = "Campo Gênero é obrigatório")]
@@ -19,6 +18,7 @@ namespace StarWars.Api.ViewModels
         [Required(ErrorMessage = "Campo Localização é obrigatório")]
         [Display(Name = "Localização")]
         public LozalizacaoViewModel Lozalizacao { get; set; }
+        public InventarioViewModel Inventario { get; set; }
         #endregion
     }
 }

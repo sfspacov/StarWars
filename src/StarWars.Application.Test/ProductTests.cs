@@ -218,7 +218,7 @@ namespace StarWars.Application.Test
                 Nome = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
                 Inventario = new Inventario
                 {
-                    Warehouses = new List<Item> {
+                    Itens = new List<Item> {
                         //new Item{Descricao = "SP", Quantity = 12, Type = "ECOMMERCE"},
                         //new Item{Descricao = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
                     }

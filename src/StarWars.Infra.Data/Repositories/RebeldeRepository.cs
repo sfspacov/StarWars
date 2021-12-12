@@ -32,6 +32,7 @@ namespace StarWars.Infra.Data.Repositories
 
         public Rebelde Create(Rebelde rebelde)
         {
+            rebelde.Id = MemoryDatabase.Any() ? MemoryDatabase.Max(x => x.Id) + 1 : 1;
             MemoryDatabase.Add(rebelde);
             rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
 

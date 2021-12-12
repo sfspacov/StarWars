@@ -45,22 +45,13 @@ namespace StarWars.Application
 
         public Rebelde Create(Rebelde rebelde)
         {
-            var rebeldeResponse = _rebeldeRepository.GetBySku(rebelde.Id);
+            var rebeldeResponse = _rebeldeRepository.Create(rebelde);
 
-            if (rebeldeResponse != null)
-            {
-                _notificator.AddError($"Produto (Sku: {rebelde.Id}) já cadastrado.");
-            }
-            else
-            {
-                rebeldeResponse = _rebeldeRepository.Create(rebelde);
-
-                if (rebeldeResponse == null)
-                    _notificator.AddError($"Falha ao cadastrar o produto (Sku: {rebelde.Id}).");
-            }
+            if (rebeldeResponse == null)
+                _notificator.AddError($"Falha ao cadastrar o rebelde (Id: {rebelde.Id}).");
 
             return rebeldeResponse;
-            }
+        }
 
         public Rebelde Update(Rebelde rebelde)
         {

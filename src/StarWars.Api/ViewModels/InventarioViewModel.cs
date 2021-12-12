@@ -6,7 +6,7 @@ namespace StarWars.Api.ViewModels
     {
         #region Properties
 
-        public List<ItemViewModel> Itens { get; set; }
+        public ICollection<ItemViewModel> Itens { get; set; }
 
         #endregion
     }
