@@ -1,0 +1,40 @@
+﻿using StarWars.Application;
+using StarWars.Domain.Handlers;
+using StarWars.Domain.Interfaces;
+using StarWars.Infra.CrossCutting.Logging;
+using StarWars.Infra.Data.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace StarWars.Api.Configuration
+{
+    public static class DependencyInjectionConfig
+    {
+        #region Public Methods
+
+        public static IServiceCollection AddDependencyInjectionConfig(this IServiceCollection services)
+        {
+            #region Applications
+
+            services.AddScoped<IRebeldeApplication, RebeldeApplication>();
+
+            #endregion
+
+            #region Repositories
+
+            services.AddScoped<IRebeldeRepository, rebeldeRepository>();
+
+            #endregion
+
+            #region Others
+
+            services.AddScoped<ILogger, NLogLogger>();
+            services.AddScoped<INotificator, NotificatorHandler>();
+
+            #endregion
+
+            return services;
+        }
+
+        #endregion
+    }
+}
