@@ -10,7 +10,7 @@ namespace StarWars.Api.Configuration
 
         public AutomapperConfig()
         {
-            CreateMap<Rebelde, RebeldeViewModel>().ReverseMap();
+            CreateMap<Rebelde, RebeldeViewModelCreate>().ReverseMap();
             CreateMap<Inventario, InventarioViewModel>().ReverseMap();
             CreateMap<Item, ItemViewModel>().ReverseMap();
             CreateMap<Lozalizacao, LozalizacaoViewModel>().ReverseMap();

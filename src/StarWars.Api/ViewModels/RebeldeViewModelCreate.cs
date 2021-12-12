@@ -2,13 +2,13 @@
 
 namespace StarWars.Api.ViewModels
 {
-    public class RebeldeViewModel
+    public class RebeldeViewModelCreate
     {
         #region Properties
 
-        public int Id { get; private set; }
+        public int Id { get; }
         [Required(ErrorMessage = "Campo Nome é obrigatório")]
-        public string Name { get; set; }
+        public string Nome { get; set; }
 
         [Required(ErrorMessage = "Campo Idade é obrigatório")]
         public int Idade { get; set; }

@@ -32,17 +32,17 @@ namespace StarWars.Api.V1.Controllers
         #region Public Methods
 
         [HttpGet("RetornaTodos")]
-        public ActionResult<IList<RebeldeViewModel>> GetAll()
+        public ActionResult<IList<RebeldeViewModelCreate>> RetornaTodos()
         {
-            var rebeldes = _mapper.Map<IList<RebeldeViewModel>>(_iRebeldeApplication.GetAll());
+            var rebeldes = _mapper.Map<IList<RebeldeViewModelCreate>>(_iRebeldeApplication.GetAll());
 
             return CustomResponse(rebeldes);
         }
 
         [HttpGet("GetBySku/{sku}")]
-        public ActionResult<RebeldeViewModel> GetBySku(int sku)
+        public ActionResult<RebeldeViewModelCreate> GetBySku(int sku)
         {
-            var rebelde = _mapper.Map<RebeldeViewModel>(_iRebeldeApplication.GetBySku(sku));
+            var rebelde = _mapper.Map<RebeldeViewModelCreate>(_iRebeldeApplication.GetBySku(sku));
 
             if (rebelde != null)
                 return CustomResponse(rebelde);
@@ -51,7 +51,7 @@ namespace StarWars.Api.V1.Controllers
         }
 
         [HttpPost("Adicionar")]
-        public ActionResult Adicionar(RebeldeViewModel rebeldeModel)
+        public ActionResult Adicionar(RebeldeViewModelCreate rebeldeModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -61,7 +61,7 @@ namespace StarWars.Api.V1.Controllers
         }
 
         [HttpPut("Atualizar")]
-        public ActionResult Atualizar(RebeldeViewModel rebeldeModel)
+        public ActionResult Atualizar(RebeldeViewModelUpdate rebeldeModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

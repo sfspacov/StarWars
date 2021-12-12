@@ -63,7 +63,7 @@ namespace StarWars.Application
             var rebeldeResponse = _rebeldeRepository.Update(rebelde);
 
             if (rebeldeResponse == null)
-                _notificator.AddError($"Falha ao atualizar o produto (Sku: {rebelde.Id}).");
+                _notificator.AddError($"Não existe Rebelde com Id = {rebelde.Id}.");
             return rebeldeResponse;
         }
 
