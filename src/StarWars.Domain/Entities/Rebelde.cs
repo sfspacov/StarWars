@@ -1,4 +1,6 @@
-﻿namespace StarWars.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace StarWars.Domain.Entities
 {
     public class Rebelde
     {
@@ -9,10 +11,8 @@
         public int Idade { get; set; }
         public string Genero { get; set; }
         public Lozalizacao Lozalizacao { get; set; }
-        public Inventario Inventario { get; set; }
-
+        public virtual List<Item> Itens { get; set; }
         public int ReporteTraicao { get; set; }
-
         public bool Traidor => ReporteTraicao > 2;
 
         #endregion

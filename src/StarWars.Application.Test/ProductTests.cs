@@ -42,7 +42,7 @@ namespace StarWars.Application.Test
             var rebeldeRepository = new Mock<IRebeldeRepository>();
             rebeldeRepository.Setup(x => x.Criar(novoRebelde)).Returns(novoRebelde);
             var itemApplication = new Mock<IItemApplication>();
-            itemApplication.Setup(x => x.ItensExistem(novoRebelde.Inventario.Itens)).Returns(true);
+            itemApplication.Setup(x => x.ItensExistem(novoRebelde.Itens)).Returns(true);
             var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
 
@@ -133,15 +133,12 @@ namespace StarWars.Application.Test
                 Id = 1,
                 Genero = "Q+",
                 Idade = 758,
-                Inventario = new Inventario
-                {
-                    Itens = new List<Item>
+                Itens = new List<Item>
                     {
                         new Item
                         {
                             Ponto = 4,
                             Nome = "Arma"
-                        }
                     }
                 },
                 Nome = "Monstro",

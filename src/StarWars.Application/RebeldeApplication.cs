@@ -36,7 +36,7 @@ namespace StarWars.Application
 
         public Rebelde Criar(Rebelde rebelde)
         {
-            if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
+            if (!_itemApplication.ItensExistem(rebelde.Itens))
                 throw new ArgumentException();
 
             var rebeldeResponse = _rebeldeRepository.Criar(rebelde);
@@ -128,7 +128,7 @@ namespace StarWars.Application
 
 
             var rebelde1 = _rebeldeRepository.RetornarPorId(idRebelde1);
-            bool hasMatch = rebelde1.Inventario.Itens.Any(x => itensRebelde1.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
+            bool hasMatch = rebelde1.Itens.Any(x => itensRebelde1.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
             if (!hasMatch)
             {
                 _notificator.AddError($"Rebelde Id: {idRebelde1} não possui os itens que deseja negociar");
@@ -136,31 +136,31 @@ namespace StarWars.Application
             }
 
             var rebelde2 = _rebeldeRepository.RetornarPorId(idRebelde2);
-            hasMatch = rebelde2.Inventario.Itens.Any(x => itensRebelde2.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
+            hasMatch = rebelde2.Itens.Any(x => itensRebelde2.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
             if (!hasMatch)
             {
                 _notificator.AddError($"Rebelde Id: {idRebelde2} não possui os itens que deseja negociar");
                 return;
             }
-            rebelde1.Inventario.Itens.AddRange(itensRebelde2);
+            rebelde1.Itens.AddRange(itensRebelde2);
             foreach (var item in itensRebelde1)
             {
-                if (rebelde1.Inventario.Itens.Any(x => x.Nome == item.Nome))
+                if (rebelde1.Itens.Any(x => x.Nome == item.Nome))
                 {
                     var itemToRemove =
-                        rebelde1.Inventario.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
-                    rebelde1.Inventario.Itens.Remove(itemToRemove);
+                        rebelde1.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
+                    rebelde1.Itens.Remove(itemToRemove);
                 }
             }
 
-            rebelde2.Inventario.Itens.AddRange(itensRebelde1);
+            rebelde2.Itens.AddRange(itensRebelde1);
             foreach (var item in itensRebelde2)
             {
-                if (rebelde2.Inventario.Itens.Any(x => x.Nome == item.Nome))
+                if (rebelde2.Itens.Any(x => x.Nome == item.Nome))
                 {
                     var itemToRemove =
-                        rebelde2.Inventario.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
-                    rebelde2.Inventario.Itens.Remove(itemToRemove);
+                        rebelde2.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
+                    rebelde2.Itens.Remove(itemToRemove);
                 }
             }
         }

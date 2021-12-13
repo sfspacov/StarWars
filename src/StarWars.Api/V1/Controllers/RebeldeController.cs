@@ -40,7 +40,8 @@ namespace StarWars.Api.V1.Controllers
         [HttpGet("RetornaTodos")]
         public ActionResult<IEnumerable<RebeldeViewModel>> RetornaTodos()
         {
-            var result = _mapper.Map<IEnumerable<RebeldeViewModel>>(_rebeldeApplication.RetornarTodos());
+            var rebeldes = _rebeldeApplication.RetornarTodos();
+            var result = _mapper.Map<IEnumerable<RebeldeViewModel>>(rebeldes);
 
             return CustomResponse(result);
         }

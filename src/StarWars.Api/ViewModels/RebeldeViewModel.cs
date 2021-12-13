@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StarWars.Api.ViewModels
 {
@@ -18,7 +19,7 @@ namespace StarWars.Api.ViewModels
         [Required(ErrorMessage = "Campo Localização é obrigatório")]
         [Display(Name = "Localização")]
         public LocalizacaoViewModel Lozalizacao { get; set; }
-        public InventarioViewModel Inventario { get; set; }
+        public List<ItemViewModel> Itens { get; set; }
         #endregion
     }
 }

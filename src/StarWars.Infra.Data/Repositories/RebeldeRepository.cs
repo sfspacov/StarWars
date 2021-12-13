@@ -2,6 +2,7 @@
 using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace StarWars.Infra.Data.Repositories
 {
@@ -9,7 +10,9 @@ namespace StarWars.Infra.Data.Repositories
     {
         #region Properties
 
-        private static readonly List<Rebelde> MemoryDatabase = new();
+        DbContextOptions<MyContext> options = new DbContextOptionsBuilder<MyContext>()
+            .UseInMemoryDatabase(databaseName: "Test")
+            .Options;
 
         #endregion
 
@@ -17,31 +20,36 @@ namespace StarWars.Infra.Data.Repositories
 
         public IEnumerable<Rebelde> RetornarTodos()
         {
-            return MemoryDatabase;
+            using var context = new MyContext(options);
+            return context.Rebeldes
+                .Include(x => x.Lozalizacao)
+                .Include(x => x.Itens)
+                .ToList();
         }
 
         public Rebelde RetornarPorId(int id)
-        {
-            return MemoryDatabase.All(x => x.Id != id) ? null : MemoryDatabase.FirstOrDefault(x => x.Id == id);
+        { 
+            using var context = new MyContext(options);
+            return context.Rebeldes.Any(x => x.Id != id) ? null : context.Rebeldes.First(x => x.Id == id);
         }
 
         public Rebelde Criar(Rebelde rebelde)
         {
-            rebelde.Id = MemoryDatabase.Any() ? MemoryDatabase.Max(x => x.Id) + 1 : 1;
-            MemoryDatabase.Add(rebelde);
-            rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
+            using var context = new MyContext(options);
+            context.Rebeldes.Add(rebelde);
+            context.SaveChanges();
 
             return rebelde;
         }
 
         public Rebelde Update(Rebelde rebelde)
         {
-            if (MemoryDatabase.All(x => x.Id != rebelde.Id))
+            using var context = new MyContext(options);
+            if (context.Rebeldes.Any(x => x.Id != rebelde.Id))
                 return null;
 
-            var index = MemoryDatabase.FindIndex(x => x.Id == rebelde.Id);
-            MemoryDatabase[index] = rebelde;
-            rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
+            context.Entry(rebelde).State = EntityState.Modified;
+            context.SaveChanges();
 
             return rebelde;
         }
