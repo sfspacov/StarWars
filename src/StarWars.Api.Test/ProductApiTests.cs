@@ -122,7 +122,8 @@
 //                Name = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
 //                Inventario = new InventarioViewModel
 //                {
-//                    Itens = new List<ItemViewModel> {
+//                    Itens = new List<ItemViewModel>
+//                    {
 //                        //new ItemViewModel{Locality = "SP", Quantity = 12, Type = "ECOMMERCE"},
 //                        //new ItemViewModel{Locality = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
 //                    }
@@ -137,7 +138,8 @@
 //                Name = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
 //                Inventario = new InventarioViewModel
 //                {
-//                    Itens = new List<ItemViewModel> {
+//                    Itens = new List<ItemViewModel>
+//                    {
 //                        //new ItemViewModel{Locality = "SP", Quantity = 12, Type = "ECOMMERCE"},
 //                        //new ItemViewModel{Locality = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
 //                    }
@@ -151,7 +153,8 @@
 //            {
 //                Inventario = new InventarioViewModel
 //                {
-//                    Itens = new List<ItemViewModel> {
+//                    Itens = new List<ItemViewModel>
+//                    {
 //                        //new ItemViewModel{Locality = "SP", Quantity = 12, Type = "ECOMMERCE"},
 //                        //new ItemViewModel{Locality = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
 //                    }

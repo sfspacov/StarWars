@@ -1,231 +1,159 @@
-//using StarWars.Domain.Entities;
-//using StarWars.Domain.Interfaces;
-//using Moq;
-//using System.Collections.Generic;
-//using System.Linq;
-//using Xunit;
+using StarWars.Domain.Entities;
+using StarWars.Domain.Interfaces;
+using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
-//namespace StarWars.Application.Test
-//{
-//    public class rebeldeTests
-//    {
-//        #region Public Methods
+namespace StarWars.Application.Test
+{
+    public class rebeldeTests
+    {
+        #region Public Methods
 
-//        [Fact]
-//        public void rebelde_GetAll_Any()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
+        [Fact]
+        public void RebeldeApplication_RetornarTodos_Ok()
+        {
+            // Arrange
+            var notificator = new Mock<INotificator>();
+            var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var itemApplication = new Mock<IItemApplication>();
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
-//            var rebeldesFakeList = new List<Rebelde>
-//            {
-//                Newrebelde()
-//            };
-//            rebeldeRepository.Setup(x => x.RetornarTodos()).Returns(rebeldesFakeList);
+            var rebeldesFakeList = new List<Rebelde>
+            {
+                NovoRebelde()
+            };
+            rebeldeRepository.Setup(x => x.RetornarTodos()).Returns(rebeldesFakeList);
 
-//            // Act
-//            var rebeldes = rebeldeApplication.RetornarTodos();
+            // Act
+            var rebeldes = rebeldeApplication.RetornarTodos();
 
-//            // Assert
-//            Assert.True(rebeldes.Any());
-//        }
+            // Assert
+            Assert.True(rebeldes.Any());
+        }
 
-//        [Fact]
-//        public void rebelde_GetAll_Empty()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
+        [Fact]
+        public void RebeldeApplication_Criar_Ok()
+        {
+            // Arrange
+            var novoRebelde = NovoRebelde();
+            var notificator = new Mock<INotificator>();
+            var rebeldeRepository = new Mock<IRebeldeRepository>();
+            rebeldeRepository.Setup(x => x.Criar(novoRebelde)).Returns(novoRebelde);
+            var itemApplication = new Mock<IItemApplication>();
+            itemApplication.Setup(x => x.ItensExistem(novoRebelde.Inventario.Itens)).Returns(true);
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
-//            // Act
-//            var rebeldes = rebeldeApplication.RetornarTodos();
 
-//            // Assert
-//            Assert.Null(rebeldes);
-//        }
+            // Act
+            var rebelde = rebeldeApplication.Criar(novoRebelde);
 
-//        [Fact]
-//        public void rebelde_GetBySku_Any()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.RetornarPorId(rebeldeFake.Id)).Returns(rebeldeFake);
+            // Assert
+            var expected = 1;
 
-//            // Act
-//            var rebeldes = rebeldeApplication.RetornarPorId(rebeldeFake.Id);
+            Assert.Equal(expected, rebelde.Id);
+        }
 
-//            // Assert
-//            Assert.False(rebeldes is null);
-//        }
+        [Fact]
+        public void RebeldeApplication_AtualizarLocalizacao_Ok()
+        {
+            // Arrange
+            var novoRebelde = NovoRebelde();
+            novoRebelde.Lozalizacao = new Lozalizacao
+            {
+                Latitude = 50,
+                Longitude = 55,
+                NomeDaBase = "Base aérea"
+            };
+            var notificator = new Mock<INotificator>();
+            var rebeldeRepository = new Mock<IRebeldeRepository>();
+            rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
+            rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
+            var itemApplication = new Mock<IItemApplication>();
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
-//        [Fact]
-//        public void rebelde_GetBySku_Empty()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake = Newrebelde();
+            // Act
+            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
 
-//            // Act
-//            var rebeldes = rebeldeApplication.RetornarPorId(rebeldeFake.Id);
+            // Assert
+            var expected = "Base aérea";
 
-//            // Assert
-//            Assert.True(rebeldes is null);
-//        }
+            Assert.Equal(expected, rebelde.Lozalizacao.NomeDaBase);
+        }
 
-//        [Fact]
-//        public void rebelde_Create_Existentrebelde()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var errorsCount = 0;
-//            var rebeldeFake = Newrebelde();
-//            notificator.Setup(x => x.AddError(It.IsAny<string>())).Callback((string msg) =>
-//            {
-//                errorsCount++;
-//            }).Verifiable();
-//            rebeldeRepository.Setup(x => x.RetornarPorId(rebeldeFake.Id)).Returns(rebeldeFake);
+        [Fact]
+        public void RebeldeApplication_ReportarTraidor_Ok()
+        {
+            // Arrange
+            var novoRebelde = NovoRebelde();
+            novoRebelde.ReporteTraicao = 1;
+            var notificator = new Mock<INotificator>();
+            var rebeldeRepository = new Mock<IRebeldeRepository>();
+            rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
+            rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
+            var itemApplication = new Mock<IItemApplication>();
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
-//            // Act
-//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
-//            // Assert
-//            Assert.Equal(1, errorsCount);
-//        }
+            // Act
+            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
 
-//        [Fact]
-//        public void rebelde_Create_Ok()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
+            // Assert
+            var expected = 1;
 
-//            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.Criar(rebeldeFake)).Returns(rebeldeFake);
+            Assert.Equal(expected, rebelde.ReporteTraicao);
+        }
 
-//            // Act
-//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
+        [Fact]
+        public void RebeldeApplication_EhTraidor_Ok()
+        {
+            // Arrange
+            var novoRebelde = NovoRebelde();
+            novoRebelde.ReporteTraicao = 3;
+            var notificator = new Mock<INotificator>();
+            var rebeldeRepository = new Mock<IRebeldeRepository>();
+            rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
+            rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
+            var itemApplication = new Mock<IItemApplication>();
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
 
-//            // Assert
-//            Assert.Equal(rebelde, rebeldeFake);
-//        }
+            // Act
+            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
 
-//        [Fact]
-//        public void rebelde_Create_Null()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake = Newrebelde();
+            // Assert
+            var expected = true;
 
-//            // Act
-//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
+            Assert.Equal(expected, rebelde.Traidor);
+        }
 
-//            // Assert
-//            Assert.Null(rebelde);
-//        }
+        private static Rebelde NovoRebelde()
+        {
+            return new Rebelde
+            {
+                Id = 1,
+                Genero = "Q+",
+                Idade = 758,
+                Inventario = new Inventario
+                {
+                    Itens = new List<Item>
+                    {
+                        new Item
+                        {
+                            Ponto = 4,
+                            Nome = "Arma"
+                        }
+                    }
+                },
+                Nome = "Monstro",
+                Lozalizacao = new Lozalizacao
+                {
+                    Latitude = 10,
+                    Longitude = 20,
+                    NomeDaBase = "Andromeda Menor"
+                },
+            };
+        }
 
-//        [Fact]
-//        public void rebelde_Update_Ok()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake1 = Newrebelde();
-//            var rebeldeFake2 = rebeldeFake1;
-//            rebeldeFake2.NomeDaBase = "Shampoo B";
-//            rebeldeRepository.Setup(x => x.AtualizarLocalizacao(rebeldeFake2)).Returns(rebeldeFake2);
-
-//            // Act
-//            var rebelde = rebeldeApplication.AtualizarLocalizacao(rebeldeFake2);
-
-//            // Assert
-//            Assert.Equal(rebelde, rebeldeFake2);
-//        }
-
-//        [Fact]
-//        public void rebelde_Update_Null()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake1 = Newrebelde();
-//            var rebeldeFake2 = rebeldeFake1;
-//            rebeldeFake2.NomeDaBase = "Shampoo B";
-
-//            // Act
-//            var rebelde = rebeldeApplication.AtualizarLocalizacao(rebeldeFake2);
-
-//            // Assert
-//            Assert.Null(rebelde);
-//        }
-
-//        [Fact]
-//        public void rebelde_Delete_Ok()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.ReportarTraidor(rebeldeFake.Id)).Returns(true);
-
-//            // Act
-//            var rebeldeResponse = rebeldeApplication.ReportarTraidor(rebeldeFake.Id);
-
-//            // Assert
-//            Assert.True(rebeldeResponse);
-//        }
-
-//        [Fact]
-//        public void rebelde_Delete_False()
-//        {
-//            // Arrange
-//            var notificator = new Mock<INotificator>();
-//            var rebeldeRepository = new Mock<IRebeldeRepository>();
-//            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
-//            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.ReportarTraidor(rebeldeFake.Id)).Returns(false);
-
-//            // Act
-//            var rebeldeResponse = rebeldeApplication.ReportarTraidor(rebeldeFake.Id);
-
-//            // Assert
-//            Assert.False(rebeldeResponse);
-//        }
-
-//        #endregion
-
-//        #region Private Methods
-
-//        private static Rebelde Newrebelde()
-//        {
-//            return new Rebelde
-//            {
-//                Id = 43264,
-//                NomeDaBase = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
-//                Inventario = new Inventario
-//                {
-//                    Itens = new List<Item> {
-//                        //new Item{NomeDaBase = "SP", Quantity = 12, Type = "ECOMMERCE"},
-//                        //new Item{NomeDaBase = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
-//                    }
-//                },
-//            };
-//        }
-
-//        #endregion
-//    }
-//}
+        #endregion
+    }
+}

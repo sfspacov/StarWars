@@ -15,7 +15,7 @@ namespace StarWars.Infra.Data.Repositories
 
         #region Public Methods
 
-        public IEnumerable<Rebelde> GetAll()
+        public IEnumerable<Rebelde> RetornarTodos()
         {
             return MemoryDatabase;
         }
@@ -25,7 +25,7 @@ namespace StarWars.Infra.Data.Repositories
             return MemoryDatabase.All(x => x.Id != id) ? null : MemoryDatabase.FirstOrDefault(x => x.Id == id);
         }
 
-        public Rebelde Create(Rebelde rebelde)
+        public Rebelde Criar(Rebelde rebelde)
         {
             rebelde.Id = MemoryDatabase.Any() ? MemoryDatabase.Max(x => x.Id) + 1 : 1;
             MemoryDatabase.Add(rebelde);
@@ -44,16 +44,6 @@ namespace StarWars.Infra.Data.Repositories
             rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
 
             return rebelde;
-        }
-
-        public bool DeleteBySku(int sku)
-        {
-            if (MemoryDatabase.All(x => x.Id != sku))
-                return false;
-
-            MemoryDatabase.RemoveAll(x => x.Id == sku);
-            var delete = MemoryDatabase.All(x => x.Id != sku);
-            return delete;
         }
 
         #endregion

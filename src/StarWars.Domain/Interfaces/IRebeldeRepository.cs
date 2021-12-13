@@ -5,14 +5,13 @@ namespace StarWars.Domain.Interfaces
 {
     public interface IRebeldeRepository
     {
-        IEnumerable<Rebelde> GetAll();
+        IEnumerable<Rebelde> RetornarTodos();
 
         Rebelde RetornarPorId(int id);
 
-        Rebelde Create(Rebelde rebelde);
+        Rebelde Criar(Rebelde rebelde);
 
         Rebelde Update(Rebelde rebelde);
 
-        bool DeleteBySku(int id);
     }
 }

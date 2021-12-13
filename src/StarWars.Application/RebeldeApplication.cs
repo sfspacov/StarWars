@@ -31,7 +31,7 @@ namespace StarWars.Application
 
         public IEnumerable<Rebelde> RetornarTodos()
         {
-            return _rebeldeRepository.GetAll();
+            return _rebeldeRepository.RetornarTodos();
         }
 
         public Rebelde Criar(Rebelde rebelde)
@@ -39,7 +39,7 @@ namespace StarWars.Application
             if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
                 throw new ArgumentException();
 
-            var rebeldeResponse = _rebeldeRepository.Create(rebelde);
+            var rebeldeResponse = _rebeldeRepository.Criar(rebelde);
 
             if (rebeldeResponse == null)
                 _notificator.AddError($"Falha ao cadastrar o rebelde (Id: {rebelde.Id}).");
@@ -95,6 +95,7 @@ namespace StarWars.Application
             _notificator.AddError($"Não existe Rebelde com Id = {id}");
             throw new ArgumentException();
         }
+
         public void NegociarItens(int idRebelde1, ICollection<Item> itensRebelde1, int idRebelde2, ICollection<Item> itensRebelde2)
         {
             if (EhTraidor(idRebelde1))
