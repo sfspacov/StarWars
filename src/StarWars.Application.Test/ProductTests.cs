@@ -144,7 +144,7 @@
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 //            var rebeldeFake1 = Newrebelde();
 //            var rebeldeFake2 = rebeldeFake1;
-//            rebeldeFake2.Nome = "Shampoo B";
+//            rebeldeFake2.NomeDaBase = "Shampoo B";
 //            rebeldeRepository.Setup(x => x.AtualizarLocalizacao(rebeldeFake2)).Returns(rebeldeFake2);
 
 //            // Act
@@ -163,7 +163,7 @@
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 //            var rebeldeFake1 = Newrebelde();
 //            var rebeldeFake2 = rebeldeFake1;
-//            rebeldeFake2.Nome = "Shampoo B";
+//            rebeldeFake2.NomeDaBase = "Shampoo B";
 
 //            // Act
 //            var rebelde = rebeldeApplication.AtualizarLocalizacao(rebeldeFake2);
@@ -215,12 +215,12 @@
 //            return new Rebelde
 //            {
 //                Id = 43264,
-//                Nome = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
+//                NomeDaBase = "L'Or�al Professionnel Expert Absolut Repair Cortex Lipidium - M�scara de Reconstru��o 500g",
 //                Inventario = new Inventario
 //                {
 //                    Itens = new List<Item> {
-//                        //new Item{Nome = "SP", Quantity = 12, Type = "ECOMMERCE"},
-//                        //new Item{Nome = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
+//                        //new Item{NomeDaBase = "SP", Quantity = 12, Type = "ECOMMERCE"},
+//                        //new Item{NomeDaBase = "MOEMA", Quantity = 3, Type = "PHYSICAL_STORE"}
 //                    }
 //                },
 //            };

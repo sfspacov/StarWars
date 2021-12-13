@@ -5,7 +5,7 @@ namespace StarWars.Domain.Interfaces
 {
     public interface IRebeldeApplication
     {
-        IList<Rebelde> RetornarTodos();
+        IEnumerable<Rebelde> RetornarTodos();
 
         Rebelde Criar(Rebelde rebelde);
 

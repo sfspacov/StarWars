@@ -7,7 +7,7 @@ namespace StarWars.Api.ViewModels
         #region Properties
 
         public int Id { get; set; }
-        [Required(ErrorMessage = "Campo Nome é obrigatório")]
+        [Required(ErrorMessage = "Campo NomeDaBase é obrigatório")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Campo Idade é obrigatório")]

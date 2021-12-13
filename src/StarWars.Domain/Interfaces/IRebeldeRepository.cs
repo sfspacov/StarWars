@@ -5,7 +5,7 @@ namespace StarWars.Domain.Interfaces
 {
     public interface IRebeldeRepository
     {
-        IList<Rebelde> GetAll();
+        IEnumerable<Rebelde> GetAll();
 
         Rebelde RetornarPorId(int id);
 

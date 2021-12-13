@@ -29,11 +29,9 @@ namespace StarWars.Application
 
         #region Public Methods
 
-        public IList<Rebelde> RetornarTodos()
+        public IEnumerable<Rebelde> RetornarTodos()
         {
-            var rebeldes = _rebeldeRepository.GetAll();
-
-            return rebeldes;
+            return _rebeldeRepository.GetAll();
         }
 
         public Rebelde Criar(Rebelde rebelde)

@@ -31,7 +31,7 @@ namespace StarWars.Application
 
             if (item != null)
             {
-                var msg = @$"Não há item com Nome = {item.Nome} e Ponto = {item.Ponto}.Os itens existente são: Arma - 4 pontos; Munição - 3 pontos; Água - 2 pontos; Comida - 1 ponto";
+                var msg = @$"Não há item com NomeDaBase = {item.Nome} e Ponto = {item.Ponto}.Os itens existente são: Arma - 4 pontos; Munição - 3 pontos; Água - 2 pontos; Comida - 1 ponto";
                 _notificator.AddError(msg);
                 return false;
             }

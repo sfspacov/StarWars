@@ -16,7 +16,7 @@ namespace StarWars.Api.Configuration
             CreateMap<Lozalizacao, LocalizacaoViewModel>().ReverseMap();
             CreateMap<Rebelde, LocalizacaoUpdateViewModel>()
                 .ForMember(x => x.IdRebelde, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Nome, y => y.MapFrom(z => z.Lozalizacao.Nome))
+                .ForMember(x => x.NomeDaBase, y => y.MapFrom(z => z.Lozalizacao.NomeDaBase))
                 .ForMember(x => x.Latitude, y => y.MapFrom(z => z.Lozalizacao.Latitude))
                 .ForMember(x => x.Longitude, y => y.MapFrom(z => z.Lozalizacao.Longitude))
                 .ReverseMap();

@@ -15,7 +15,7 @@ namespace StarWars.Infra.Data.Repositories
 
         #region Public Methods
 
-        public IList<Rebelde> GetAll()
+        public IEnumerable<Rebelde> GetAll()
         {
             return MemoryDatabase;
         }
@@ -39,16 +39,16 @@ namespace StarWars.Infra.Data.Repositories
             if (MemoryDatabase.All(x => x.Id != rebelde.Id))
                 return null;
 
-                var index = MemoryDatabase.FindIndex(x => x.Id == rebelde.Id);
-                MemoryDatabase[index] = rebelde;
-                rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
+            var index = MemoryDatabase.FindIndex(x => x.Id == rebelde.Id);
+            MemoryDatabase[index] = rebelde;
+            rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
 
-                return rebelde;
+            return rebelde;
         }
 
         public bool DeleteBySku(int sku)
         {
-            if (MemoryDatabase.All(x => x.Id != sku)) 
+            if (MemoryDatabase.All(x => x.Id != sku))
                 return false;
 
             MemoryDatabase.RemoveAll(x => x.Id == sku);
