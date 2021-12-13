@@ -15,6 +15,7 @@ namespace StarWars.Api.Configuration
         {
             #region Applications
 
+            services.AddScoped<ILocalizacaoApplication, LocalizacaoApplication>();
             services.AddScoped<IRebeldeApplication, RebeldeApplication>();
             services.AddScoped<IItemApplication, ItemApplication>();
 
@@ -22,6 +23,7 @@ namespace StarWars.Api.Configuration
 
             #region Repositories
 
+            services.AddScoped<ILocalizacaoRepository, LocalizacaoRepository>();
             services.AddScoped<IRebeldeRepository, RebeldeRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
 

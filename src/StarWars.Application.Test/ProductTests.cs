@@ -17,8 +17,9 @@ namespace StarWars.Application.Test
             // Arrange
             var notificator = new Mock<INotificator>();
             var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var localizacaoRepository = new Mock<ILocalizacaoRepository>();
             var itemApplication = new Mock<IItemApplication>();
-            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object, localizacaoRepository.Object);
 
             var rebeldesFakeList = new List<Rebelde>
             {
@@ -40,10 +41,11 @@ namespace StarWars.Application.Test
             var novoRebelde = NovoRebelde();
             var notificator = new Mock<INotificator>();
             var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var localizacaoRepository = new Mock<ILocalizacaoRepository>();
             rebeldeRepository.Setup(x => x.Criar(novoRebelde)).Returns(novoRebelde);
             var itemApplication = new Mock<IItemApplication>();
             itemApplication.Setup(x => x.ItensExistem(novoRebelde.Itens)).Returns(true);
-            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object, localizacaoRepository.Object);
 
 
             // Act
@@ -60,7 +62,7 @@ namespace StarWars.Application.Test
         {
             // Arrange
             var novoRebelde = NovoRebelde();
-            novoRebelde.Lozalizacao = new Lozalizacao
+            novoRebelde.Localizacao = new Localizacao
             {
                 Latitude = 50,
                 Longitude = 55,
@@ -68,18 +70,18 @@ namespace StarWars.Application.Test
             };
             var notificator = new Mock<INotificator>();
             var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var localizacaoRepository = new Mock<ILocalizacaoRepository>();
             rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
             rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
-            var itemApplication = new Mock<IItemApplication>();
-            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
+            var localizacaoApplication = new LocalizacaoApplication(notificator.Object, localizacaoRepository.Object);
 
             // Act
-            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
+            var localizacao = localizacaoApplication.Atualizar(novoRebelde.Localizacao);
 
             // Assert
             var expected = "Base aérea";
 
-            Assert.Equal(expected, rebelde.Lozalizacao.NomeDaBase);
+            Assert.Equal(expected, localizacao.NomeDaBase);
         }
 
         [Fact]
@@ -90,18 +92,19 @@ namespace StarWars.Application.Test
             novoRebelde.ReporteTraicao = 1;
             var notificator = new Mock<INotificator>();
             var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var localizacaoRepository = new Mock<ILocalizacaoRepository>();
             rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
             rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
             var itemApplication = new Mock<IItemApplication>();
-            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object, localizacaoRepository.Object);
 
             // Act
-            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
+            var actual = rebeldeApplication.ReportarTraidor(1);
 
             // Assert
-            var expected = 1;
+            var expected = "Reportes de traição: 1";
 
-            Assert.Equal(expected, rebelde.ReporteTraicao);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -112,18 +115,19 @@ namespace StarWars.Application.Test
             novoRebelde.ReporteTraicao = 3;
             var notificator = new Mock<INotificator>();
             var rebeldeRepository = new Mock<IRebeldeRepository>();
+            var localizacaoRepository = new Mock<ILocalizacaoRepository>();
             rebeldeRepository.Setup(x => x.RetornarPorId(1)).Returns(novoRebelde);
             rebeldeRepository.Setup(x => x.Update(novoRebelde)).Returns(novoRebelde);
             var itemApplication = new Mock<IItemApplication>();
-            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object);
+            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object, itemApplication.Object, localizacaoRepository.Object);
 
             // Act
-            var rebelde = rebeldeApplication.AtualizarLocalizacao(novoRebelde);
+            var actual = rebeldeApplication.EhTraidor(1);
 
             // Assert
             var expected = true;
 
-            Assert.Equal(expected, rebelde.Traidor);
+            Assert.Equal(expected, actual);
         }
 
         private static Rebelde NovoRebelde()
@@ -142,7 +146,7 @@ namespace StarWars.Application.Test
                     }
                 },
                 Nome = "Monstro",
-                Lozalizacao = new Lozalizacao
+                Localizacao = new Localizacao
                 {
                     Latitude = 10,
                     Longitude = 20,

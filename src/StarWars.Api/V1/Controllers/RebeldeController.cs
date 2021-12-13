@@ -19,15 +19,17 @@ namespace StarWars.Api.V1.Controllers
 
         private readonly IMapper _mapper;
         private readonly IRebeldeApplication _rebeldeApplication;
+        private readonly ILocalizacaoApplication _localizacaoApplication;
 
         #endregion
 
         #region Constructors
 
-        public RebeldeController(INotificator notificator, IMapper mapper, IRebeldeApplication rebeldeApplication) : base(notificator)
+        public RebeldeController(INotificator notificator, IMapper mapper, IRebeldeApplication rebeldeApplication, ILocalizacaoApplication localizacaoApplication) : base(notificator)
         {
             _mapper = mapper;
             _rebeldeApplication = rebeldeApplication;
+            _localizacaoApplication = localizacaoApplication;
         }
 
         #endregion
@@ -55,7 +57,7 @@ namespace StarWars.Api.V1.Controllers
         [HttpPost("Adicionar")]
         public ActionResult Adicionar(RebeldeViewModel viewModel)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
             var result = _rebeldeApplication.Criar(_mapper.Map<Rebelde>(viewModel));
@@ -72,12 +74,19 @@ namespace StarWars.Api.V1.Controllers
         [HttpPatch("Atualizar")]
         public ActionResult AtualizarLocalizacao(LocalizacaoUpdateViewModel viewModel)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var result = _rebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
+            _localizacaoApplication.Atualizar(new Localizacao
 
-            return CustomResponse(result);
+            {
+                IdRebelde = viewModel.IdRebelde,
+                Latitude = viewModel.Latitude,
+                Longitude = viewModel.Longitude,
+                NomeDaBase = viewModel.NomeDaBase,
+            });
+
+            return CustomResponse();
         }
 
         /// <summary>

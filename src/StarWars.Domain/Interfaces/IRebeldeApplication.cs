@@ -9,8 +9,6 @@ namespace StarWars.Domain.Interfaces
 
         Rebelde Criar(Rebelde rebelde);
 
-        Rebelde AtualizarLocalizacao(Rebelde rebelde);
-
         string ReportarTraidor(int id);
 
         bool EhTraidor(int id);

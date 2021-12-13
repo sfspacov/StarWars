@@ -12,17 +12,19 @@ namespace StarWars.Application
 
         private readonly INotificator _notificator;
         private readonly IRebeldeRepository _rebeldeRepository;
+        private readonly ILocalizacaoRepository _localizacaoRepository;
         private readonly IItemApplication _itemApplication;
 
         #endregion
 
         #region Constructors
 
-        public RebeldeApplication(INotificator notificator, IRebeldeRepository rebeldeRepository, IItemApplication itemApplication)
+        public RebeldeApplication(INotificator notificator, IRebeldeRepository rebeldeRepository, IItemApplication itemApplication, ILocalizacaoRepository localizacaoRepository)
         {
             _notificator = notificator;
             _rebeldeRepository = rebeldeRepository;
             _itemApplication = itemApplication;
+            _localizacaoRepository = localizacaoRepository;
         }
 
         #endregion
@@ -45,25 +47,6 @@ namespace StarWars.Application
                 _notificator.AddError($"Falha ao cadastrar o rebelde (Id: {rebelde.Id}).");
 
             return rebeldeResponse;
-        }
-
-        public Rebelde AtualizarLocalizacao(Rebelde rebelde)
-        {
-            var entidade = _rebeldeRepository.RetornarPorId(rebelde.Id);
-
-            if (entidade == null)
-            {
-                _notificator.AddError($"Não existe Rebelde com Id = {rebelde.Id}");
-                throw new ArgumentException();
-            }
-
-            entidade.Lozalizacao = rebelde.Lozalizacao;
-            var entidadeAtualizada = _rebeldeRepository.Update(entidade);
-
-            if (entidadeAtualizada == null)
-                _notificator.AddError($"Erro ao atualizar localização do Rebelde! (Id = {rebelde.Id})");
-
-            return entidadeAtualizada;
         }
 
         public string ReportarTraidor(int id)

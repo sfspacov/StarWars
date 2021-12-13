@@ -10,7 +10,7 @@ namespace StarWars.Domain.Entities
         public string Nome { get; set; }
         public int Idade { get; set; }
         public string Genero { get; set; }
-        public Lozalizacao Lozalizacao { get; set; }
+        public Localizacao Localizacao { get; set; }
         public virtual List<Item> Itens { get; set; }
         public int ReporteTraicao { get; set; }
         public bool Traidor => ReporteTraicao > 2;

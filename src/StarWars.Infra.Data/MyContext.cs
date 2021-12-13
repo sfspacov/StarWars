@@ -15,6 +15,6 @@ namespace StarWars.Infra.Data
         { }
         public DbSet<Rebelde> Rebeldes { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Lozalizacao> Localizacoes { get; set; }
+        public DbSet<Localizacao> Localizacoes { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace StarWars.Api.Configuration
         {
             CreateMap<Rebelde, RebeldeViewModel>().ReverseMap();
             CreateMap<Item, ItemViewModel>().ReverseMap();
-            CreateMap<Lozalizacao, LocalizacaoViewModel>().ReverseMap();
+            CreateMap<Localizacao, LocalizacaoViewModel>().ReverseMap();
             CreateMap<Rebelde, LocalizacaoUpdateViewModel>()
                 .ForMember(x => x.IdRebelde, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.NomeDaBase, y => y.MapFrom(z => z.Lozalizacao.NomeDaBase))
-                .ForMember(x => x.Latitude, y => y.MapFrom(z => z.Lozalizacao.Latitude))
-                .ForMember(x => x.Longitude, y => y.MapFrom(z => z.Lozalizacao.Longitude))
+                .ForMember(x => x.NomeDaBase, y => y.MapFrom(z => z.Localizacao.NomeDaBase))
+                .ForMember(x => x.Latitude, y => y.MapFrom(z => z.Localizacao.Latitude))
+                .ForMember(x => x.Longitude, y => y.MapFrom(z => z.Localizacao.Longitude))
                 .ReverseMap();
         }
 

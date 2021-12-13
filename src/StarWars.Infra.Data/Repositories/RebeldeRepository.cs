@@ -22,7 +22,7 @@ namespace StarWars.Infra.Data.Repositories
         {
             using var context = new MyContext(options);
             return context.Rebeldes
-                .Include(x => x.Lozalizacao)
+                .Include(x => x.Localizacao)
                 .Include(x => x.Itens)
                 .ToList();
         }
@@ -30,7 +30,9 @@ namespace StarWars.Infra.Data.Repositories
         public Rebelde RetornarPorId(int id)
         { 
             using var context = new MyContext(options);
-            return context.Rebeldes.Any(x => x.Id != id) ? null : context.Rebeldes.First(x => x.Id == id);
+            return context.Rebeldes
+                .Include(x => x.Localizacao)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public Rebelde Criar(Rebelde rebelde)
