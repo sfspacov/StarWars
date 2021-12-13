@@ -6,7 +6,7 @@ namespace StarWars.Domain.Entities
     {
         #region Properties
 
-        public ICollection<Item> Itens { get; set; }
+        public List<Item> Itens { get; set; }
 
         #endregion
     }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using StarWars.Domain.Entities;
 using StarWars.Domain.Interfaces;
 
@@ -36,6 +38,7 @@ namespace StarWars.Application
 
             return true;
         }
+
         #endregion
     }
 }

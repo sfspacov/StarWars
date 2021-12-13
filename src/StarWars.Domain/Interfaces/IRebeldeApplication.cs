@@ -7,13 +7,15 @@ namespace StarWars.Domain.Interfaces
     {
         IList<Rebelde> RetornarTodos();
 
-        Rebelde RetornarPorId(int id);
-
         Rebelde Criar(Rebelde rebelde);
 
         Rebelde AtualizarLocalizacao(Rebelde rebelde);
 
         string ReportarTraidor(int id);
+
         bool EhTraidor(int id);
+        
+        void NegociarItens(int idRebelde1, ICollection<Item> itensRebelde1, int idRebelde2, ICollection<Item> itensRebelde2);
+
     }
 }

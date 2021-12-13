@@ -15,36 +15,37 @@ namespace StarWars.Api.V1.Controllers
         #region Properties
 
         private readonly IMapper _mapper;
-        private readonly IRebeldeApplication _iRebeldeApplication;
+        private readonly IRebeldeApplication _rebeldeApplication;
 
         #endregion
 
         #region Constructors
 
-        public RebeldeController(INotificator notificator, IMapper mapper, IRebeldeApplication iRebeldeApplication) : base(notificator)
+        public RebeldeController(INotificator notificator, IMapper mapper, IRebeldeApplication rebeldeApplication) : base(notificator)
         {
             _mapper = mapper;
-            _iRebeldeApplication = iRebeldeApplication;
+            _rebeldeApplication = rebeldeApplication;
         }
 
         #endregion
 
         #region Public Methods
+        [HttpPatch("NegociarItens")]
+        public ActionResult NegociarItens(NegociarItensViewModel viewModel)
+        {
+            var itensRebelde1 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde1);
+            var itensRebelde2 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde2);
 
+            _rebeldeApplication.NegociarItens(viewModel.IdRebelde1, itensRebelde1, viewModel.IdRebelde2, itensRebelde2);
+
+            return CustomResponse();
+        }
         [HttpGet("RetornaTodos")]
         public ActionResult<IList<RebeldeViewModel>> RetornaTodos()
         {
-            var result = _mapper.Map<IList<RebeldeViewModel>>(_iRebeldeApplication.RetornarTodos());
+            var result = _mapper.Map<IList<RebeldeViewModel>>(_rebeldeApplication.RetornarTodos());
 
             return CustomResponse(result);
-        }
-
-        [HttpGet("RetornarPorId/{id}")]
-        public ActionResult<RebeldeViewModel> RetornarPorId(int id)
-        {
-            var result = _mapper.Map<RebeldeViewModel>(_iRebeldeApplication.RetornarPorId(id));
-
-            return result != null ? CustomResponse(result) : CustomResponse();
         }
 
         [HttpPost("Adicionar")]
@@ -52,7 +53,7 @@ namespace StarWars.Api.V1.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = _iRebeldeApplication.Criar(_mapper.Map<Rebelde>(viewModel));
+            var result = _rebeldeApplication.Criar(_mapper.Map<Rebelde>(viewModel));
 
             return CustomResponse(result);
         }
@@ -62,7 +63,7 @@ namespace StarWars.Api.V1.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = _iRebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
+            var result = _rebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
 
             return CustomResponse(result);
         }
@@ -70,7 +71,7 @@ namespace StarWars.Api.V1.Controllers
         [HttpPatch("ReportarTraidor/{idRebelde}")]
         public ActionResult ReportarTraidor(int idRebelde)
         {
-            var result = _iRebeldeApplication.ReportarTraidor(idRebelde);
+            var result = _rebeldeApplication.ReportarTraidor(idRebelde);
 
             return CustomResponse(result);
         }
@@ -78,11 +79,10 @@ namespace StarWars.Api.V1.Controllers
         [HttpPatch("EhTraidor/{idRebelde}")]
         public ActionResult EhTraidor(int idRebelde)
         {
-            var result = _iRebeldeApplication.EhTraidor(idRebelde);
+            var result = _rebeldeApplication.EhTraidor(idRebelde);
 
             return CustomResponse(result);
         }
-
         #endregion
     }
 }

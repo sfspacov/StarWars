@@ -2,6 +2,7 @@
 using StarWars.Domain.Entities;
 using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StarWars.Application
 {
@@ -33,19 +34,6 @@ namespace StarWars.Application
             var rebeldes = _rebeldeRepository.GetAll();
 
             return rebeldes;
-        }
-
-        public Rebelde RetornarPorId(int id)
-        {
-            var rebelde = _rebeldeRepository.RetornarPorId(id);
-
-            if (rebelde == null)
-            {
-                _notificator.AddError($"Produto (Sku: {id}) não encontrado.");
-                throw new ArgumentException();
-            }
-
-            return rebelde;
         }
 
         public Rebelde Criar(Rebelde rebelde)
@@ -103,17 +91,76 @@ namespace StarWars.Application
         {
             var entidade = _rebeldeRepository.RetornarPorId(id);
 
-            if (entidade != null) 
+            if (entidade != null)
                 return entidade.Traidor;
 
             _notificator.AddError($"Não existe Rebelde com Id = {id}");
             throw new ArgumentException();
         }
+        public void NegociarItens(int idRebelde1, ICollection<Item> itensRebelde1, int idRebelde2, ICollection<Item> itensRebelde2)
+        {
+            if (EhTraidor(idRebelde1))
+            {
+                _notificator.AddError($"O Rebelde {idRebelde1} é traidor e não pode negociar itens");
+                return;
+            }
 
-        #endregion
+            if (EhTraidor(idRebelde2))
+            {
+                _notificator.AddError($"O Rebelde {idRebelde2} é traidor e não pode negociar itens");
+                return;
+            }
 
-        #region Private Methods
+            if (!_itemApplication.ItensExistem(itensRebelde1))
+            {
+                return;
+            }
 
+            if (!_itemApplication.ItensExistem(itensRebelde2))
+            {
+                return;
+            }
+
+            if (itensRebelde1.Sum(x => x.Ponto) != itensRebelde2.Sum(x => x.Ponto))
+            {
+                _notificator.AddError("Ambos os lados deverão oferecer a mesma quantidade de pontos para haver negociação");
+                return;
+            }
+
+
+            var rebelde1 = _rebeldeRepository.RetornarPorId(idRebelde1);
+            bool hasMatch = rebelde1.Inventario.Itens.Any(x => itensRebelde1.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
+            if (!hasMatch)
+            {
+                _notificator.AddError($"Rebelde Id: {idRebelde1} não possui os itens que deseja negociar");
+                return;
+            }
+
+            var rebelde2 = _rebeldeRepository.RetornarPorId(idRebelde2);
+            hasMatch = rebelde2.Inventario.Itens.Any(x => itensRebelde2.Any(y => y.Nome == x.Nome && y.Ponto == x.Ponto));
+            if (!hasMatch)
+            {
+                _notificator.AddError($"Rebelde Id: {idRebelde2} não possui os itens que deseja negociar");
+                return;
+            }
+            rebelde1.Inventario.Itens.AddRange(itensRebelde2);
+            foreach (var item in itensRebelde1)
+            {
+                if (rebelde1.Inventario.Itens.Contains(item))
+                {
+                    rebelde1.Inventario.Itens.Remove(item);
+                }
+            }
+
+            rebelde2.Inventario.Itens.AddRange(itensRebelde1);
+            foreach (var item in itensRebelde2)
+            {
+                if (rebelde2.Inventario.Itens.Contains(item))
+                {
+                    rebelde2.Inventario.Itens.Remove(item);
+                }
+            }
+        }
 
         #endregion
     }
