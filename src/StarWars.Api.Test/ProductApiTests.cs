@@ -56,12 +56,12 @@
 //        public async Task rebelde_Update_Ok()
 //        {
 //            // Arrange
-//            _rebeldeFake.Name = "Shampoo Update";
+//            _rebeldeFake.Name = "Shampoo AtualizarLocalizacao";
 //            var rebeldeJson = JsonConvert.SerializeObject(_rebeldeFake);
 //            var rebeldeContent = new StringContent(rebeldeJson, UnicodeEncoding.UTF8, "application/json");
 
 //            // Act
-//            var response = await _client.PutAsync("/api/v1/Rebelde/Update", rebeldeContent);
+//            var response = await _client.PutAsync("/api/v1/Rebelde/AtualizarLocalizacao", rebeldeContent);
 
 //            // Assert
 //            Assert.True(response.IsSuccessStatusCode);

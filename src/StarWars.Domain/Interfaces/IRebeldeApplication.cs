@@ -11,7 +11,7 @@ namespace StarWars.Domain.Interfaces
 
         Rebelde Create(Rebelde rebelde);
 
-        Rebelde Update(Rebelde rebelde);
+        Rebelde AtualizarLocalizacao(Rebelde rebelde);
 
         bool DeleteBySku(int sku);
     }

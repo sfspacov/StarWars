@@ -44,7 +44,7 @@ namespace StarWars.Infra.Data.Repositories
             if (MemoryDatabase.Any(x => x.Id == rebelde.Id))
             {
                 var index = MemoryDatabase.FindIndex(x => x.Id == rebelde.Id);
-                MemoryDatabase[index] = rebelde;
+                MemoryDatabase[index].Lozalizacao = rebelde.Lozalizacao;
                 rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
 
                 return rebelde;

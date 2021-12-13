@@ -58,11 +58,8 @@ namespace StarWars.Application
             return rebeldeResponse;
         }
 
-        public Rebelde Update(Rebelde rebelde)
+        public Rebelde AtualizarLocalizacao(Rebelde rebelde)
         {
-            if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
-                return null;
-
             var rebeldeResponse = _rebeldeRepository.Update(rebelde);
 
             if (rebeldeResponse == null)

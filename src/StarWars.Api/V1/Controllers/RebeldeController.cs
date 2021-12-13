@@ -51,21 +51,21 @@ namespace StarWars.Api.V1.Controllers
         }
 
         [HttpPost("Adicionar")]
-        public ActionResult Adicionar(RebeldeViewModel rebeldeModel)
+        public ActionResult Adicionar(RebeldeViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var rebelde = _iRebeldeApplication.Create(_mapper.Map<Rebelde>(rebeldeModel));
+            var rebelde = _iRebeldeApplication.Create(_mapper.Map<Rebelde>(viewModel));
 
             return CustomResponse(rebelde);
         }
 
         [HttpPut("Atualizar")]
-        public ActionResult Atualizar(RebeldeViewModel rebeldeModel)
+        public ActionResult AtualizarLocalizacao(LocalizacaoUpdateViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var rebelde = _iRebeldeApplication.Update(_mapper.Map<Rebelde>(rebeldeModel));
+            var rebelde = _iRebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
 
             return CustomResponse(rebelde);
         }

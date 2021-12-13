@@ -17,7 +17,7 @@ namespace StarWars.Api.ViewModels
         public string Genero { get; set; }
         [Required(ErrorMessage = "Campo Localização é obrigatório")]
         [Display(Name = "Localização")]
-        public LozalizacaoViewModel Lozalizacao { get; set; }
+        public LocalizacaoViewModel Lozalizacao { get; set; }
         public InventarioViewModel Inventario { get; set; }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿namespace StarWars.Api.ViewModels
 {
-    public class LozalizacaoViewModel
+    public class LocalizacaoViewModel
     {
         #region Properties
         public float Latitude { get; set; }

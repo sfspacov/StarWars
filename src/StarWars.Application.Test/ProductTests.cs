@@ -145,10 +145,10 @@
 //            var rebeldeFake1 = Newrebelde();
 //            var rebeldeFake2 = rebeldeFake1;
 //            rebeldeFake2.Nome = "Shampoo B";
-//            rebeldeRepository.Setup(x => x.Update(rebeldeFake2)).Returns(rebeldeFake2);
+//            rebeldeRepository.Setup(x => x.AtualizarLocalizacao(rebeldeFake2)).Returns(rebeldeFake2);
 
 //            // Act
-//            var rebelde = rebeldeApplication.Update(rebeldeFake2);
+//            var rebelde = rebeldeApplication.AtualizarLocalizacao(rebeldeFake2);
 
 //            // Assert
 //            Assert.Equal(rebelde, rebeldeFake2);
@@ -166,7 +166,7 @@
 //            rebeldeFake2.Nome = "Shampoo B";
 
 //            // Act
-//            var rebelde = rebeldeApplication.Update(rebeldeFake2);
+//            var rebelde = rebeldeApplication.AtualizarLocalizacao(rebeldeFake2);
 
 //            // Assert
 //            Assert.Null(rebelde);
