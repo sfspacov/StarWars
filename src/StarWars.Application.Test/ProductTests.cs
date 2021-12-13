@@ -23,10 +23,10 @@
 //            {
 //                Newrebelde()
 //            };
-//            rebeldeRepository.Setup(x => x.GetAll()).Returns(rebeldesFakeList);
+//            rebeldeRepository.Setup(x => x.RetornarTodos()).Returns(rebeldesFakeList);
 
 //            // Act
-//            var rebeldes = rebeldeApplication.GetAll();
+//            var rebeldes = rebeldeApplication.RetornarTodos();
 
 //            // Assert
 //            Assert.True(rebeldes.Any());
@@ -41,7 +41,7 @@
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 
 //            // Act
-//            var rebeldes = rebeldeApplication.GetAll();
+//            var rebeldes = rebeldeApplication.RetornarTodos();
 
 //            // Assert
 //            Assert.Null(rebeldes);
@@ -55,10 +55,10 @@
 //            var rebeldeRepository = new Mock<IRebeldeRepository>();
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 //            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.GetBySku(rebeldeFake.Id)).Returns(rebeldeFake);
+//            rebeldeRepository.Setup(x => x.RetornarPorId(rebeldeFake.Id)).Returns(rebeldeFake);
 
 //            // Act
-//            var rebeldes = rebeldeApplication.GetBySku(rebeldeFake.Id);
+//            var rebeldes = rebeldeApplication.RetornarPorId(rebeldeFake.Id);
 
 //            // Assert
 //            Assert.False(rebeldes is null);
@@ -74,7 +74,7 @@
 //            var rebeldeFake = Newrebelde();
 
 //            // Act
-//            var rebeldes = rebeldeApplication.GetBySku(rebeldeFake.Id);
+//            var rebeldes = rebeldeApplication.RetornarPorId(rebeldeFake.Id);
 
 //            // Assert
 //            Assert.True(rebeldes is null);
@@ -93,10 +93,10 @@
 //            {
 //                errorsCount++;
 //            }).Verifiable();
-//            rebeldeRepository.Setup(x => x.GetBySku(rebeldeFake.Id)).Returns(rebeldeFake);
+//            rebeldeRepository.Setup(x => x.RetornarPorId(rebeldeFake.Id)).Returns(rebeldeFake);
 
 //            // Act
-//            var rebelde = rebeldeApplication.Create(rebeldeFake);
+//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
 //            // Assert
 //            Assert.Equal(1, errorsCount);
 //        }
@@ -110,10 +110,10 @@
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 
 //            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.Create(rebeldeFake)).Returns(rebeldeFake);
+//            rebeldeRepository.Setup(x => x.Criar(rebeldeFake)).Returns(rebeldeFake);
 
 //            // Act
-//            var rebelde = rebeldeApplication.Create(rebeldeFake);
+//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
 
 //            // Assert
 //            Assert.Equal(rebelde, rebeldeFake);
@@ -129,7 +129,7 @@
 //            var rebeldeFake = Newrebelde();
 
 //            // Act
-//            var rebelde = rebeldeApplication.Create(rebeldeFake);
+//            var rebelde = rebeldeApplication.Criar(rebeldeFake);
 
 //            // Assert
 //            Assert.Null(rebelde);
@@ -180,10 +180,10 @@
 //            var rebeldeRepository = new Mock<IRebeldeRepository>();
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 //            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.DeleteBySku(rebeldeFake.Id)).Returns(true);
+//            rebeldeRepository.Setup(x => x.ReportarTraidor(rebeldeFake.Id)).Returns(true);
 
 //            // Act
-//            var rebeldeResponse = rebeldeApplication.DeleteBySku(rebeldeFake.Id);
+//            var rebeldeResponse = rebeldeApplication.ReportarTraidor(rebeldeFake.Id);
 
 //            // Assert
 //            Assert.True(rebeldeResponse);
@@ -197,10 +197,10 @@
 //            var rebeldeRepository = new Mock<IRebeldeRepository>();
 //            var rebeldeApplication = new RebeldeApplication(notificator.Object, rebeldeRepository.Object);
 //            var rebeldeFake = Newrebelde();
-//            rebeldeRepository.Setup(x => x.DeleteBySku(rebeldeFake.Id)).Returns(false);
+//            rebeldeRepository.Setup(x => x.ReportarTraidor(rebeldeFake.Id)).Returns(false);
 
 //            // Act
-//            var rebeldeResponse = rebeldeApplication.DeleteBySku(rebeldeFake.Id);
+//            var rebeldeResponse = rebeldeApplication.ReportarTraidor(rebeldeFake.Id);
 
 //            // Assert
 //            Assert.False(rebeldeResponse);

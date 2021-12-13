@@ -7,7 +7,7 @@ namespace StarWars.Domain.Interfaces
     {
         IList<Rebelde> GetAll();
 
-        Rebelde GetBySku(int id);
+        Rebelde RetornarPorId(int id);
 
         Rebelde Create(Rebelde rebelde);
 

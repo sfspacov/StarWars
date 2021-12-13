@@ -34,20 +34,17 @@ namespace StarWars.Api.V1.Controllers
         [HttpGet("RetornaTodos")]
         public ActionResult<IList<RebeldeViewModel>> RetornaTodos()
         {
-            var rebeldes = _mapper.Map<IList<RebeldeViewModel>>(_iRebeldeApplication.GetAll());
+            var result = _mapper.Map<IList<RebeldeViewModel>>(_iRebeldeApplication.RetornarTodos());
 
-            return CustomResponse(rebeldes);
+            return CustomResponse(result);
         }
 
-        [HttpGet("GetBySku/{sku}")]
-        public ActionResult<RebeldeViewModel> GetBySku(int sku)
+        [HttpGet("RetornarPorId/{id}")]
+        public ActionResult<RebeldeViewModel> RetornarPorId(int id)
         {
-            var rebelde = _mapper.Map<RebeldeViewModel>(_iRebeldeApplication.GetBySku(sku));
+            var result = _mapper.Map<RebeldeViewModel>(_iRebeldeApplication.RetornarPorId(id));
 
-            if (rebelde != null)
-                return CustomResponse(rebelde);
-
-            return CustomResponse();
+            return result != null ? CustomResponse(result) : CustomResponse();
         }
 
         [HttpPost("Adicionar")]
@@ -55,27 +52,35 @@ namespace StarWars.Api.V1.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var rebelde = _iRebeldeApplication.Create(_mapper.Map<Rebelde>(viewModel));
+            var result = _iRebeldeApplication.Criar(_mapper.Map<Rebelde>(viewModel));
 
-            return CustomResponse(rebelde);
+            return CustomResponse(result);
         }
 
-        [HttpPut("Atualizar")]
+        [HttpPatch("Atualizar")]
         public ActionResult AtualizarLocalizacao(LocalizacaoUpdateViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var rebelde = _iRebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
+            var result = _iRebeldeApplication.AtualizarLocalizacao(_mapper.Map<Rebelde>(viewModel));
 
-            return CustomResponse(rebelde);
+            return CustomResponse(result);
         }
 
-        [HttpDelete("DeleteBySku/{sku}")]
-        public ActionResult DeleteBySku(int sku)
+        [HttpPatch("ReportarTraidor/{idRebelde}")]
+        public ActionResult ReportarTraidor(int idRebelde)
         {
-            _iRebeldeApplication.DeleteBySku(sku);
+            var result = _iRebeldeApplication.ReportarTraidor(idRebelde);
 
-            return CustomResponse("Produto deletado com sucesso!");
+            return CustomResponse(result);
+        }
+
+        [HttpPatch("EhTraidor/{idRebelde}")]
+        public ActionResult EhTraidor(int idRebelde)
+        {
+            var result = _iRebeldeApplication.EhTraidor(idRebelde);
+
+            return CustomResponse(result);
         }
 
         #endregion

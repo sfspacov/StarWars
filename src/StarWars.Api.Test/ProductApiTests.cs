@@ -46,7 +46,7 @@
 //            var rebeldeContent = new StringContent(rebeldeJson, UnicodeEncoding.UTF8, "application/json");
 
 //            // Act
-//            var response = await _client.PostAsync("/api/v1/Rebelde/Create", rebeldeContent);
+//            var response = await _client.PostAsync("/api/v1/Rebelde/Criar", rebeldeContent);
 
 //            // Assert
 //            Assert.True(response.IsSuccessStatusCode);
@@ -85,7 +85,7 @@
 //            var rebeldeContent = new StringContent(rebeldeJson, UnicodeEncoding.UTF8, "application/json");
 
 //            // Act
-//            var response = await _client.PostAsync("/api/v1/Rebelde/Create", rebeldeContent);
+//            var response = await _client.PostAsync("/api/v1/Rebelde/Criar", rebeldeContent);
 //            var responseString = await response.Content.ReadAsStringAsync();
 //            var responseObject = JsonConvert.DeserializeObject<ResponseViewModel>(responseString);
 
@@ -102,7 +102,7 @@
 //            var rebeldeContent = new StringContent(rebeldeJson, UnicodeEncoding.UTF8, "application/json");
 
 //            // Act
-//            var response = await _client.PostAsync("/api/v1/Rebelde/Create", rebeldeContent);
+//            var response = await _client.PostAsync("/api/v1/Rebelde/Criar", rebeldeContent);
 //            var responseString = await response.Content.ReadAsStringAsync();
 //            var responseObject = JsonConvert.DeserializeObject<ResponseViewModel>(responseString);
 

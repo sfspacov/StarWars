@@ -1,7 +1,7 @@
-﻿using StarWars.Domain.Entities;
+﻿using System;
+using StarWars.Domain.Entities;
 using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StarWars.Application
 {
@@ -28,27 +28,30 @@ namespace StarWars.Application
 
         #region Public Methods
 
-        public IList<Rebelde> GetAll()
+        public IList<Rebelde> RetornarTodos()
         {
             var rebeldes = _rebeldeRepository.GetAll();
 
             return rebeldes;
         }
 
-        public Rebelde GetBySku(int sku)
+        public Rebelde RetornarPorId(int id)
         {
-            var rebelde = _rebeldeRepository.GetBySku(sku);
+            var rebelde = _rebeldeRepository.RetornarPorId(id);
 
             if (rebelde == null)
-                _notificator.AddError($"Produto (Sku: {sku}) não encontrado.");
+            {
+                _notificator.AddError($"Produto (Sku: {id}) não encontrado.");
+                throw new ArgumentException();
+            }
 
             return rebelde;
         }
 
-        public Rebelde Create(Rebelde rebelde)
+        public Rebelde Criar(Rebelde rebelde)
         {
             if (!_itemApplication.ItensExistem(rebelde.Inventario.Itens))
-                return null;
+                throw new ArgumentException();
 
             var rebeldeResponse = _rebeldeRepository.Create(rebelde);
 
@@ -60,21 +63,51 @@ namespace StarWars.Application
 
         public Rebelde AtualizarLocalizacao(Rebelde rebelde)
         {
-            var rebeldeResponse = _rebeldeRepository.Update(rebelde);
+            var entidade = _rebeldeRepository.RetornarPorId(rebelde.Id);
 
-            if (rebeldeResponse == null)
-                _notificator.AddError($"Não existe Rebelde com Id = {rebelde.Id}.");
-            return rebeldeResponse;
+            if (entidade == null)
+            {
+                _notificator.AddError($"Não existe Rebelde com Id = {rebelde.Id}");
+                throw new ArgumentException();
+            }
+
+            entidade.Lozalizacao = rebelde.Lozalizacao;
+            var entidadeAtualizada = _rebeldeRepository.Update(entidade);
+
+            if (entidadeAtualizada == null)
+                _notificator.AddError($"Erro ao atualizar localização do Rebelde! (Id = {rebelde.Id})");
+
+            return entidadeAtualizada;
         }
 
-        public bool DeleteBySku(int sku)
+        public string ReportarTraidor(int id)
         {
-            var response = _rebeldeRepository.DeleteBySku(sku);
+            var entidade = _rebeldeRepository.RetornarPorId(id);
 
-            if (!response)
-                _notificator.AddError($"Erro ao excluir o produto (Sku: {sku}).");
+            if (entidade == null)
+            {
+                _notificator.AddError($"Não existe Rebelde com Id = {id}");
+                throw new ArgumentException();
+            }
 
-            return response;
+            entidade.ReporteTraicao += 1;
+            var entidadeAtualizada = _rebeldeRepository.Update(entidade);
+
+            if (entidadeAtualizada == null)
+                _notificator.AddError($"Erro ao reportar Rebelde como traidor! (Id = {entidade.Id})");
+
+            return $"Reportes de traição: {entidade.ReporteTraicao}";
+        }
+
+        public bool EhTraidor(int id)
+        {
+            var entidade = _rebeldeRepository.RetornarPorId(id);
+
+            if (entidade != null) 
+                return entidade.Traidor;
+
+            _notificator.AddError($"Não existe Rebelde com Id = {id}");
+            throw new ArgumentException();
         }
 
         #endregion

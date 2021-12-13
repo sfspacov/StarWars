@@ -20,14 +20,9 @@ namespace StarWars.Infra.Data.Repositories
             return MemoryDatabase;
         }
 
-        public Rebelde GetBySku(int sku)
+        public Rebelde RetornarPorId(int id)
         {
-            if (MemoryDatabase.All(x => x.Id != sku))
-                return null;
-
-            var rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == sku);
-
-            return rebelde;
+            return MemoryDatabase.All(x => x.Id != id) ? null : MemoryDatabase.FirstOrDefault(x => x.Id == id);
         }
 
         public Rebelde Create(Rebelde rebelde)
@@ -41,23 +36,20 @@ namespace StarWars.Infra.Data.Repositories
 
         public Rebelde Update(Rebelde rebelde)
         {
-            if (MemoryDatabase.Any(x => x.Id == rebelde.Id))
-            {
+            if (MemoryDatabase.All(x => x.Id != rebelde.Id))
+                return null;
+
                 var index = MemoryDatabase.FindIndex(x => x.Id == rebelde.Id);
-                MemoryDatabase[index].Lozalizacao = rebelde.Lozalizacao;
+                MemoryDatabase[index] = rebelde;
                 rebelde = MemoryDatabase.FirstOrDefault(x => x.Id == rebelde.Id);
 
                 return rebelde;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public bool DeleteBySku(int sku)
         {
-            if (MemoryDatabase.All(x => x.Id != sku)) return false;
+            if (MemoryDatabase.All(x => x.Id != sku)) 
+                return false;
 
             MemoryDatabase.RemoveAll(x => x.Id == sku);
             var delete = MemoryDatabase.All(x => x.Id != sku);

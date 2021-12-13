@@ -11,6 +11,9 @@
         public Lozalizacao Lozalizacao { get; set; }
         public Inventario Inventario { get; set; }
 
+        public int ReporteTraicao { get; set; }
+
+        public bool Traidor => ReporteTraicao > 2;
 
         #endregion
     }

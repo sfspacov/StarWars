@@ -5,14 +5,15 @@ namespace StarWars.Domain.Interfaces
 {
     public interface IRebeldeApplication
     {
-        IList<Rebelde> GetAll();
+        IList<Rebelde> RetornarTodos();
 
-        Rebelde GetBySku(int sku);
+        Rebelde RetornarPorId(int id);
 
-        Rebelde Create(Rebelde rebelde);
+        Rebelde Criar(Rebelde rebelde);
 
         Rebelde AtualizarLocalizacao(Rebelde rebelde);
 
-        bool DeleteBySku(int sku);
+        string ReportarTraidor(int id);
+        bool EhTraidor(int id);
     }
 }
