@@ -30,16 +30,7 @@ namespace StarWars.Api.V1.Controllers
         #endregion
 
         #region Public Methods
-        [HttpPatch("NegociarItens")]
-        public ActionResult NegociarItens(NegociarItensViewModel viewModel)
-        {
-            var itensRebelde1 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde1);
-            var itensRebelde2 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde2);
 
-            _rebeldeApplication.NegociarItens(viewModel.IdRebelde1, itensRebelde1, viewModel.IdRebelde2, itensRebelde2);
-
-            return CustomResponse();
-        }
         [HttpGet("RetornaTodos")]
         public ActionResult<IList<RebeldeViewModel>> RetornaTodos()
         {
@@ -82,6 +73,17 @@ namespace StarWars.Api.V1.Controllers
             var result = _rebeldeApplication.EhTraidor(idRebelde);
 
             return CustomResponse(result);
+        }
+
+        [HttpPatch("NegociarItens")]
+        public ActionResult NegociarItens(NegociarItensViewModel viewModel)
+        {
+            var itensRebelde1 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde1);
+            var itensRebelde2 = _mapper.Map<ICollection<Item>>(viewModel.ItensRebelde2);
+
+            _rebeldeApplication.NegociarItens(viewModel.IdRebelde1, itensRebelde1, viewModel.IdRebelde2, itensRebelde2);
+
+            return CustomResponse("Negociação realizada com sucesso!");
         }
         #endregion
     }

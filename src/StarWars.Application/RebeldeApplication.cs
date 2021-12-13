@@ -146,18 +146,22 @@ namespace StarWars.Application
             rebelde1.Inventario.Itens.AddRange(itensRebelde2);
             foreach (var item in itensRebelde1)
             {
-                if (rebelde1.Inventario.Itens.Contains(item))
+                if (rebelde1.Inventario.Itens.Any(x => x.Nome == item.Nome))
                 {
-                    rebelde1.Inventario.Itens.Remove(item);
+                    var itemToRemove =
+                        rebelde1.Inventario.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
+                    rebelde1.Inventario.Itens.Remove(itemToRemove);
                 }
             }
 
             rebelde2.Inventario.Itens.AddRange(itensRebelde1);
             foreach (var item in itensRebelde2)
             {
-                if (rebelde2.Inventario.Itens.Contains(item))
+                if (rebelde2.Inventario.Itens.Any(x => x.Nome == item.Nome))
                 {
-                    rebelde2.Inventario.Itens.Remove(item);
+                    var itemToRemove =
+                        rebelde2.Inventario.Itens.First(x => x.Ponto == item.Ponto && x.Nome == item.Nome);
+                    rebelde2.Inventario.Itens.Remove(itemToRemove);
                 }
             }
         }
