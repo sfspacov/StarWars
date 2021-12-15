@@ -1,6 +1,6 @@
 ﻿using StarWars.Domain.Entities;
 
-namespace StarWars.Domain.Interfaces
+namespace StarWars.Domain.Interfaces.Applications
 {
     public interface ILocalizacaoApplication
     {

@@ -5,6 +5,7 @@ using StarWars.Domain.Entities;
 using StarWars.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using StarWars.Domain.Interfaces.Applications;
 
 namespace StarWars.Api.V1.Controllers
 {

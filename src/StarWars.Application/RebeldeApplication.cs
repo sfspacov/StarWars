@@ -3,6 +3,8 @@ using StarWars.Domain.Entities;
 using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using StarWars.Domain.Interfaces.Applications;
+using StarWars.Domain.Interfaces.Repositories;
 
 namespace StarWars.Application
 {

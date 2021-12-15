@@ -3,6 +3,7 @@ using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using StarWars.Domain.Interfaces.Repositories;
 
 namespace StarWars.Infra.Data.Repositories
 {
@@ -18,12 +19,19 @@ namespace StarWars.Infra.Data.Repositories
 
         #region Public Methods
 
+        public void Criar(Localizacao localizacao)
+        {
+            using var context = new MyContext(options);
+            context.Localizacoes.Add(localizacao);
+            context.SaveChanges();
+        }
         public Localizacao Update(Localizacao localizacao)
         {
             using var context = new MyContext(options);
-            if (context.Rebeldes.Any(x => x.Id != localizacao.Id))
+            var firstOrDefault = context.Rebeldes.Include(x => x.Localizacao).FirstOrDefault(x => x.Id == localizacao.IdRebelde);
+            if (firstOrDefault == null)
                 return null;
-
+            localizacao.Id = firstOrDefault.Localizacao.Id;
             context.Entry(localizacao).State = EntityState.Modified;
             context.SaveChanges();
 
@@ -31,5 +39,10 @@ namespace StarWars.Infra.Data.Repositories
         }
 
         #endregion
+
+        public void Seed()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

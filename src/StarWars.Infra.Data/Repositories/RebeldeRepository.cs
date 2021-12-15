@@ -3,11 +3,17 @@ using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using StarWars.Domain.Interfaces.Repositories;
 
 namespace StarWars.Infra.Data.Repositories
 {
     public class RebeldeRepository : IRebeldeRepository
     {
+        public RebeldeRepository()
+        {
+            Seed();
+        }
+
         #region Properties
 
         DbContextOptions<MyContext> options = new DbContextOptionsBuilder<MyContext>()
@@ -21,14 +27,15 @@ namespace StarWars.Infra.Data.Repositories
         public IEnumerable<Rebelde> RetornarTodos()
         {
             using var context = new MyContext(options);
-            return context.Rebeldes
+            var result = context.Rebeldes
                 .Include(x => x.Localizacao)
                 .Include(x => x.Itens)
                 .ToList();
+            return result;
         }
 
         public Rebelde RetornarPorId(int id)
-        { 
+        {
             using var context = new MyContext(options);
             return context.Rebeldes
                 .Include(x => x.Localizacao)
@@ -57,5 +64,39 @@ namespace StarWars.Infra.Data.Repositories
         }
 
         #endregion
+
+        public void Seed()
+        {
+            using var context = new MyContext(options);
+            if (!context.Rebeldes.Any())
+            {
+
+                context.Rebeldes.AddRange(new List<Rebelde>
+                {
+                    new Rebelde
+                    {
+                        Nome = "Monstro",
+                        Genero = "Hetero",
+                        Itens = new List<Item>
+                        {
+                            new Item
+                            {
+                                Ponto = 4,
+                                Nome = "Arma"
+                            }
+                        },
+                        Localizacao = new Localizacao
+                        {
+                            Longitude = 10,
+                            NomeDaBase = "Estrala alfa ZB",
+                            Latitude = 20
+                        },
+                        Idade = 689,
+                    }
+                }
+                );
+                context.SaveChanges();
+            }
+        }
     }
 }

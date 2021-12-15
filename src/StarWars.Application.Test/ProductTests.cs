@@ -3,6 +3,8 @@ using StarWars.Domain.Interfaces;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using StarWars.Domain.Interfaces.Applications;
+using StarWars.Domain.Interfaces.Repositories;
 using Xunit;
 
 namespace StarWars.Application.Test

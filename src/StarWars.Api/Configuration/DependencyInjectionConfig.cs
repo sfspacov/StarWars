@@ -4,6 +4,8 @@ using StarWars.Domain.Interfaces;
 using StarWars.Infra.CrossCutting.Logging;
 using StarWars.Infra.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using StarWars.Domain.Interfaces.Applications;
+using StarWars.Domain.Interfaces.Repositories;
 
 namespace StarWars.Api.Configuration
 {

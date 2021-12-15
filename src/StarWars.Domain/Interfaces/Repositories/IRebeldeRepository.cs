@@ -1,9 +1,9 @@
-﻿using StarWars.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using StarWars.Domain.Entities;
 
-namespace StarWars.Domain.Interfaces
+namespace StarWars.Domain.Interfaces.Repositories
 {
-    public interface IRebeldeRepository
+    public interface IRebeldeRepository : IBaseRepository
     {
         IEnumerable<Rebelde> RetornarTodos();
 

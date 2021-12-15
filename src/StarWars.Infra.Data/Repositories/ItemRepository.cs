@@ -1,8 +1,8 @@
 ﻿using StarWars.Domain.Entities;
-using StarWars.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using StarWars.Domain.Interfaces.Repositories;
 
 namespace StarWars.Infra.Data.Repositories
 {
@@ -42,7 +42,7 @@ namespace StarWars.Infra.Data.Repositories
 
         #region Private Methods
 
-        private void Seed()
+        public void Seed()
         {
             using var context = new MyContext(options);
             if (!context.Items.Any())
